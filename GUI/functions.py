@@ -1,20 +1,13 @@
-from tkinter import filedialog as fd
-from tkinter.constants import END
+import matplotlib.pyplot as plt
+import sqlite3
 
-def selectFile():
-    import app
-    app.fileName.config(state="normal")
-    app.fileName.delete(0, END)
-    filetypes = (
-        ('text files', '*.txt'),
-        ('All files', '*.*')
-    )
+def fetchData():
+    connection = sqlite3.connect("Database/accidents.db")
 
-    filename = fd.askopenfilename(
-        title='Open a file',
-        initialdir='/',
-        filetypes=filetypes)
-    
-    print(filename)
-    app.fileName.insert(0, filename)
-    app.fileName.config(state="readonly")
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT OBJECTID, ACCIDENT_NO, ABS_CODE, ACCIDENT_STATUS, ACCIDENT_DATE, ACCIDENT_TIME, ALCOHOLTIME, ACCIDENT_TYPE, DAY_OF_WEEK, DCA_CODE FROM CRASH_DATA")
+
+    DATA = cursor.fetchall()
+
+    return DATA
