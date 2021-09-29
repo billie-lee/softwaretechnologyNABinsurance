@@ -469,8 +469,8 @@ def treeviewColumn(tv1):
 
 def loadTreeviewData(tv1, data):
     
-    for dt in data: 
-        if dt[0] % 2:
+    for index, dt in enumerate(data): 
+        if index % 2:
             tv1.insert("", 'end',iid=dt[0], text=dt[0],
             values =(dt[0],dt[1],dt[2],dt[3],dt[4],dt[5],dt[6],dt[7],dt[8],dt[9],
             dt[10],dt[11],dt[12],dt[13],dt[14],dt[15],dt[16],dt[17],dt[18],dt[19],
