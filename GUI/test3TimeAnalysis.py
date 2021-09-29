@@ -8,9 +8,6 @@ data = Crash_Analysis()
 class TestCrashAnalysis(unittest.TestCase):
     """Class for unit testing get_time_analysis function of the Crash_Analysis module"""
 
-    # test get_period function with valid inputs
-    # got predicted number of results from sql queries of the database
-
     # 3.1 Test valid input dates returns 24 values. 
     def test_time_analysis_values(self):
         self.assertEqual(len(data.get_time_analysis("2013-07-01", "2013-07-02")[1]), 24)

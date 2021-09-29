@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
+    <title>Coverage for GUI\test7FetchLocations.py: 100%</title>
+    <link rel="icon" sizes="32x32" href="favicon_32.png">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="jquery.isonscreen.js"></script>
+    <script type="text/javascript" src="coverage_html.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(coverage.pyfile_ready);
+    </script>
+</head>
+<body class="pyfile">
+<div id="header">
+    <div class="content">
+        <h1>Coverage for <b>GUI\test7FetchLocations.py</b> :
+            <span class="pc_cov">100%</span>
+        </h1>
+        <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
+        <h2 class="stats">
+            11 statements &nbsp;
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">11 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">0 missing</button>
+            <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
+        </h2>
+    </div>
+</div>
+<div class="help_panel">
+    <img id="panel_icon" src="keybd_open.png" alt="Hide keyboard shortcuts" />
+    <p class="legend">Hot-keys on this page</p>
+    <div>
+    <p class="keyhelp">
+        <span class="key">r</span>
+        <span class="key">m</span>
+        <span class="key">x</span>
+        <span class="key">p</span> &nbsp; toggle line displays
+    </p>
+    <p class="keyhelp">
+        <span class="key">j</span>
+        <span class="key">k</span> &nbsp; next/prev highlighted chunk
+    </p>
+    <p class="keyhelp">
+        <span class="key">0</span> &nbsp; (zero) top of page
+    </p>
+    <p class="keyhelp">
+        <span class="key">1</span> &nbsp; (one) first highlighted chunk
+    </p>
+    </div>
+</div>
+<div id="source">
+    <p id="t1" class="run"><span class="n"><a href="#t1">1</a></span><span class="t"><span class="key">import</span> <span class="nam">unittest</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t2" class="run"><span class="n"><a href="#t2">2</a></span><span class="t"><span class="key">from</span> <span class="nam">crash_analysis</span> <span class="key">import</span> <span class="nam">Crash_Analysis</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t3" class="pln"><span class="n"><a href="#t3">3</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t4" class="pln"><span class="n"><a href="#t4">4</a></span><span class="t"><span class="com"># Create a Crash_Analysis object</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t5" class="run"><span class="n"><a href="#t5">5</a></span><span class="t"><span class="nam">data</span> <span class="op">=</span> <span class="nam">Crash_Analysis</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t6" class="pln"><span class="n"><a href="#t6">6</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t7" class="pln"><span class="n"><a href="#t7">7</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t8" class="run"><span class="n"><a href="#t8">8</a></span><span class="t"><span class="key">class</span> <span class="nam">TestCrashAnalysis</span><span class="op">(</span><span class="nam">unittest</span><span class="op">.</span><span class="nam">TestCase</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t9" class="pln"><span class="n"><a href="#t9">9</a></span><span class="t">    <span class="str">"""Class for unit testing fetch_location function of the Crash_Analysis module"""</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t10" class="pln"><span class="n"><a href="#t10">10</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t11" class="pln"><span class="n"><a href="#t11">11</a></span><span class="t">    <span class="com"># 7.1 Test the return type is a list</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t12" class="run"><span class="n"><a href="#t12">12</a></span><span class="t">    <span class="key">def</span> <span class="nam">test_fetch_location_type</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t13" class="run"><span class="n"><a href="#t13">13</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertIs</span><span class="op">(</span><span class="nam">type</span><span class="op">(</span><span class="nam">data</span><span class="op">.</span><span class="nam">fetch_location</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">,</span> <span class="nam">list</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t14" class="pln"><span class="n"><a href="#t14">14</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t15" class="pln"><span class="n"><a href="#t15">15</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t16" class="pln"><span class="n"><a href="#t16">16</a></span><span class="t">    <span class="com"># 7.2 Test the number of locations returned == 87</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t17" class="run"><span class="n"><a href="#t17">17</a></span><span class="t">    <span class="key">def</span> <span class="nam">test_time_analysis_total</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t18" class="run"><span class="n"><a href="#t18">18</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertEqual</span><span class="op">(</span><span class="nam">len</span><span class="op">(</span><span class="nam">data</span><span class="op">.</span><span class="nam">fetch_location</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">,</span> <span class="num">87</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t19" class="pln"><span class="n"><a href="#t19">19</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t20" class="pln"><span class="n"><a href="#t20">20</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t21" class="pln"><span class="n"><a href="#t21">21</a></span><span class="t">    <span class="com"># 7.3 Test the locations returned equal the locations stored in the database.</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t22" class="run"><span class="n"><a href="#t22">22</a></span><span class="t">    <span class="key">def</span> <span class="nam">test_time_analysis_number</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t23" class="run"><span class="n"><a href="#t23">23</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">assertEqual</span><span class="op">(</span><span class="nam">data</span><span class="op">.</span><span class="nam">fetch_location</span><span class="op">(</span><span class="op">)</span><span class="op">,</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t24" class="pln"><span class="n"><a href="#t24">24</a></span><span class="t">            <span class="str">'MELBOURNE'</span><span class="op">,</span> <span class="str">'WHITEHORSE'</span><span class="op">,</span> <span class="str">'BRIMBANK'</span><span class="op">,</span> <span class="str">'MITCHELL'</span><span class="op">,</span> <span class="str">'BAW BAW'</span><span class="op">,</span> <span class="str">'BAYSIDE'</span><span class="op">,</span> <span class="str">'BOROONDARA'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t25" class="pln"><span class="n"><a href="#t25">25</a></span><span class="t">            <span class="str">'BANYULE'</span><span class="op">,</span> <span class="str">'HUME'</span><span class="op">,</span> <span class="str">'WHITTLESEA'</span><span class="op">,</span> <span class="str">'GEELONG'</span><span class="op">,</span> <span class="str">'HOBSONS BAY'</span><span class="op">,</span> <span class="str">'NILLUMBIK'</span><span class="op">,</span> <span class="str">'PORT PHILLIP'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t26" class="pln"><span class="n"><a href="#t26">26</a></span><span class="t">            <span class="str">'DAREBIN'</span><span class="op">,</span> <span class="str">'YARRA'</span><span class="op">,</span> <span class="str">'LATROBE'</span><span class="op">,</span> <span class="str">'MOONEE VALLEY'</span><span class="op">,</span> <span class="str">'KNOX'</span><span class="op">,</span> <span class="str">'CASEY'</span><span class="op">,</span> <span class="str">'BENDIGO'</span><span class="op">,</span> <span class="str">'FRANKSTON'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t27" class="pln"><span class="n"><a href="#t27">27</a></span><span class="t">            <span class="str">'EAST GIPPSLAND'</span><span class="op">,</span> <span class="str">'KINGSTON'</span><span class="op">,</span> <span class="str">'MAROONDAH'</span><span class="op">,</span> <span class="str">'BALLARAT'</span><span class="op">,</span> <span class="str">'CAMPASPE'</span><span class="op">,</span> <span class="str">'SHEPPARTON'</span><span class="op">,</span> <span class="str">'MILDURA'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t28" class="pln"><span class="n"><a href="#t28">28</a></span><span class="t">            <span class="str">'DANDENONG'</span><span class="op">,</span> <span class="str">'MONASH'</span><span class="op">,</span> <span class="str">'GOLDEN PLAINS'</span><span class="op">,</span> <span class="str">'MORNINGTON PENINSULA'</span><span class="op">,</span> <span class="str">'WYNDHAM'</span><span class="op">,</span> <span class="str">'CORANGAMITE'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t29" class="pln"><span class="n"><a href="#t29">29</a></span><span class="t">            <span class="str">'BASS COAST'</span><span class="op">,</span> <span class="str">'MURRINDINDI'</span><span class="op">,</span> <span class="str">'STONNINGTON'</span><span class="op">,</span> <span class="str">'MORELAND'</span><span class="op">,</span> <span class="str">'MOORABOOL'</span><span class="op">,</span> <span class="str">'YARRA RANGES'</span><span class="op">,</span> <span class="str">'MARIBYRNONG'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t30" class="pln"><span class="n"><a href="#t30">30</a></span><span class="t">            <span class="str">'STRATHBOGIE'</span><span class="op">,</span> <span class="str">'CARDINIA'</span><span class="op">,</span> <span class="str">'TOWONG'</span><span class="op">,</span> <span class="str">'WANGARATTA'</span><span class="op">,</span> <span class="str">'MELTON'</span><span class="op">,</span> <span class="str">'SURF COAST'</span><span class="op">,</span> <span class="str">'SOUTH GIPPSLAND'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t31" class="pln"><span class="n"><a href="#t31">31</a></span><span class="t">            <span class="str">'HEPBURN'</span><span class="op">,</span> <span class="str">'SOUTHERN GRAMPIANS'</span><span class="op">,</span> <span class="str">'GLEN EIRA'</span><span class="op">,</span> <span class="str">'BENALLA'</span><span class="op">,</span> <span class="str">'MOYNE'</span><span class="op">,</span> <span class="str">'COLAC OTWAY'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t32" class="pln"><span class="n"><a href="#t32">32</a></span><span class="t">            <span class="str">'MACEDON RANGES'</span><span class="op">,</span> <span class="str">'MOIRA'</span><span class="op">,</span> <span class="str">'WELLINGTON'</span><span class="op">,</span> <span class="str">'WEST WIMMERA'</span><span class="op">,</span> <span class="str">'MANSFIELD'</span><span class="op">,</span> <span class="str">'LODDON'</span><span class="op">,</span> <span class="str">'WODONGA'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t33" class="pln"><span class="n"><a href="#t33">33</a></span><span class="t">            <span class="str">'INDIGO'</span><span class="op">,</span> <span class="str">'HORSHAM'</span><span class="op">,</span> <span class="str">'MANNINGHAM'</span><span class="op">,</span> <span class="str">'NORTHERN GRAMPIANS'</span><span class="op">,</span> <span class="str">'PYRENEES'</span><span class="op">,</span> <span class="str">'ALPINE'</span><span class="op">,</span> <span class="str">'BULOKE'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t34" class="pln"><span class="n"><a href="#t34">34</a></span><span class="t">            <span class="str">'GANNAWARRA'</span><span class="op">,</span> <span class="str">'ARARAT'</span><span class="op">,</span> <span class="str">'WARRNAMBOOL'</span><span class="op">,</span> <span class="str">'GLENELG'</span><span class="op">,</span> <span class="str">'SWAN HILL'</span><span class="op">,</span> <span class="str">'HINDMARSH'</span><span class="op">,</span> <span class="str">'FALLS CREEK'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t35" class="pln"><span class="n"><a href="#t35">35</a></span><span class="t">            <span class="str">'MOUNT ALEXANDER'</span><span class="op">,</span> <span class="str">'CENTRAL GOLDFIELDS'</span><span class="op">,</span> <span class="str">'MOUNT BULLER'</span><span class="op">,</span> <span class="str">'MOUNT HOTHAM'</span><span class="op">,</span> <span class="str">'YARRIAMBIACK'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t36" class="pln"><span class="n"><a href="#t36">36</a></span><span class="t">            <span class="str">'LAKE MOUNTAIN'</span><span class="op">,</span> <span class="str">'MOUNT BAW BAW'</span><span class="op">,</span> <span class="str">'QUEENSCLIFFE'</span><span class="op">,</span> <span class="str">'MOUNT BULLER ALPINE RESOR'</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t37" class="pln"><span class="n"><a href="#t37">37</a></span><span class="t">            <span class="str">'FRENCH ISLAND'</span><span class="op">,</span> <span class="str">'MOUNT STIRLING'</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t38" class="pln"><span class="n"><a href="#t38">38</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t39" class="pln"><span class="n"><a href="#t39">39</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t40" class="run"><span class="n"><a href="#t40">40</a></span><span class="t"><span class="nam">unittest</span><span class="op">.</span><span class="nam">main</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+</div>
+<div id="footer">
+    <div class="content">
+        <p>
+            <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
+            created at 2021-09-30 09:03 +1000
+        </p>
+    </div>
+</div>
+</body>
+</html>
