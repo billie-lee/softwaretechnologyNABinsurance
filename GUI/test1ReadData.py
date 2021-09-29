@@ -1,23 +1,3 @@
-
-# ----Get number of rows of data = 74908 for loaded database, 0 for unloaded.
-# select count() from Crash_Data;
-
-# -----old test function
-# def get_rows():
-
-#     import sqlite3
-#     con =sqlite3.connect("Database/accidents.db")
-#     cur = con.cursor()
-#     sql = "SELECT * FROM Crash_Data;"
-#     cur.execute(sql)
-#     results = cur.fetchall()
-#     con.close()
-#     return len(results)
-
-# rows = get_rows()
-# print(rows)
-
-
 import unittest
 from crash_analysis import Crash_Analysis
 
