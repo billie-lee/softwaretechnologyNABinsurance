@@ -319,7 +319,7 @@ class Crash_Analysis:
 
         cursor = connection.cursor()
 
-        cursor.execute("SELECT * FROM CRASH_DATA LIMIT 1,100")
+        cursor.execute("SELECT * FROM CRASH_DATA;")
 
         data = cursor.fetchall()
 

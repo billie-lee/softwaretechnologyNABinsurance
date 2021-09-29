@@ -6,7 +6,7 @@ data = Crash_Analysis()
 data.read_data("testdata/crashData.csv")
 
 class TestCrashAnalysis(unittest.TestCase):
-    """Class for unit testing get_period function of the Crash_Analysis module"""
+    """Class for unit testing get_period and load_data functions of the Crash_Analysis module"""
 
     # test get_period function with valid inputs
     # got predicted number of results from sql queries of the database
