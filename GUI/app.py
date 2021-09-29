@@ -53,8 +53,8 @@ def loadData(filePath):
     filePath = fileName.get()
     print(filePath)
 
-    # data = Crash_Analysis()
-    # data.read_data(filePath)
+    data = Crash_Analysis()
+    data.read_data(filePath)
 
 def loadDateAnalysis(data):
     #call function date analysis
