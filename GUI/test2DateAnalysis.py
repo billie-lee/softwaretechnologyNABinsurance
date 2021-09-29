@@ -3,7 +3,7 @@ from crash_analysis import Crash_Analysis
 
 # Create a Crash_Analysis object
 data = Crash_Analysis()
-
+data.read_data("testdata/crashData.csv")
 
 class TestCrashAnalysis(unittest.TestCase):
     """Class for unit testing get_period function of the Crash_Analysis module"""
