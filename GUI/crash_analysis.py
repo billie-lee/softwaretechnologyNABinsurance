@@ -264,44 +264,54 @@ class Crash_Analysis:
         );"""
         )
 
-        # open the specified CSV file
-        file = open(csv_file, 'r')
-        # read the data into a dictionary with column headings as keys for each value in a row. 
-        crash_data = csv.DictReader(file)
-        # List comprehension that loops through crash_data creating a tuple containing the values for each key in a row for every row in the csv file. 
-        # row['ACCIDENT_DATE'] is converted from dd-mm-yyyy format to yyyy-mm-dd for storage in the sqlite database.
-        data = [(row['OBJECTID'], row['ACCIDENT_NO'], row['ABS_CODE'], row['ACCIDENT_STATUS'], 
-        datetime.datetime.strptime(row['ACCIDENT_DATE'], "%d/%m/%Y").strftime("%Y-%m-%d"), 
-        row['ACCIDENT_TIME'], row['ALCOHOLTIME'], row['ACCIDENT_TYPE'], row['DAY_OF_WEEK'], row['DCA_CODE'], row['HIT_RUN_FLAG'], 
-        row['LIGHT_CONDITION'], row['POLICE_ATTEND'], row['ROAD_GEOMETRY'], row['SEVERITY'], row['SPEED_ZONE'], row['RUN_OFFROAD'], 
-        row['NODE_ID'], row['LONGITUDE'], row['LATITUDE'], row['NODE_TYPE'], row['LGA_NAME'], row['REGION_NAME'], 
-        row['VICGRID_X'], row['VICGRID_Y'], row['TOTAL_PERSONS'], row['INJ_OR_FATAL'], row['FATALITY'], row['SERIOUSINJURY'], 
-        row['OTHERINJURY'], row['NONINJURED'], row['MALES'], row['FEMALES'], row['BICYCLIST'], row['PASSENGER'], row['DRIVER'], 
-        row['PEDESTRIAN'], row['PILLION'], row['MOTORIST'], row['UNKNOWN'], row['PED_CYCLIST_5_12'], row['PED_CYCLIST_13_18'], 
-        row['OLD_PEDESTRIAN'], row['OLD_DRIVER'], row['YOUNG_DRIVER'], row['ALCOHOL_RELATED'], row['UNLICENCSED'], 
-        row['NO_OF_VEHICLES'], row['HEAVYVEHICLE'], row['PASSENGERVEHICLE'], row['MOTORCYCLE'], row['PUBLICVEHICLE'], 
-        row['DEG_URBAN_NAME'], row['DEG_URBAN_ALL'], row['LGA_NAME_ALL'], row['REGION_NAME_ALL'], row['SRNS'], row['SRNS_ALL'], 
-        row['RMA'], row['RMA_ALL'], row['DIVIDED'], row['DIVIDED_ALL'], row['STAT_DIV_NAME']) for row in crash_data]
+        try:
+            # open the specified CSV file
+            file = open(csv_file, 'r')
+            # read the data into a dictionary with column headings as keys for each value in a row. 
+            crash_data = csv.DictReader(file)
+            # List comprehension that loops through crash_data creating a tuple containing the values for each key in a row for every row in the csv file. 
+            # row['ACCIDENT_DATE'] is converted from dd-mm-yyyy format to yyyy-mm-dd for storage in the sqlite database.
+            data = [(row['OBJECTID'], row['ACCIDENT_NO'], row['ABS_CODE'], row['ACCIDENT_STATUS'], 
+            datetime.datetime.strptime(row['ACCIDENT_DATE'], "%d/%m/%Y").strftime("%Y-%m-%d"), 
+            row['ACCIDENT_TIME'], row['ALCOHOLTIME'], row['ACCIDENT_TYPE'], row['DAY_OF_WEEK'], row['DCA_CODE'], row['HIT_RUN_FLAG'], 
+            row['LIGHT_CONDITION'], row['POLICE_ATTEND'], row['ROAD_GEOMETRY'], row['SEVERITY'], row['SPEED_ZONE'], row['RUN_OFFROAD'], 
+            row['NODE_ID'], row['LONGITUDE'], row['LATITUDE'], row['NODE_TYPE'], row['LGA_NAME'], row['REGION_NAME'], 
+            row['VICGRID_X'], row['VICGRID_Y'], row['TOTAL_PERSONS'], row['INJ_OR_FATAL'], row['FATALITY'], row['SERIOUSINJURY'], 
+            row['OTHERINJURY'], row['NONINJURED'], row['MALES'], row['FEMALES'], row['BICYCLIST'], row['PASSENGER'], row['DRIVER'], 
+            row['PEDESTRIAN'], row['PILLION'], row['MOTORIST'], row['UNKNOWN'], row['PED_CYCLIST_5_12'], row['PED_CYCLIST_13_18'], 
+            row['OLD_PEDESTRIAN'], row['OLD_DRIVER'], row['YOUNG_DRIVER'], row['ALCOHOL_RELATED'], row['UNLICENCSED'], 
+            row['NO_OF_VEHICLES'], row['HEAVYVEHICLE'], row['PASSENGERVEHICLE'], row['MOTORCYCLE'], row['PUBLICVEHICLE'], 
+            row['DEG_URBAN_NAME'], row['DEG_URBAN_ALL'], row['LGA_NAME_ALL'], row['REGION_NAME_ALL'], row['SRNS'], row['SRNS_ALL'], 
+            row['RMA'], row['RMA_ALL'], row['DIVIDED'], row['DIVIDED_ALL'], row['STAT_DIV_NAME']) for row in crash_data]
 
-        # data contains a tuple of values for every row of data from the csv file.
-        # The executemany inserts values for each of the specified fields for each row of data in the variable "data"
-        cur.executemany(
-            """Insert into Crash_Data (OBJECTID, ACCIDENT_NO, ABS_CODE, ACCIDENT_STATUS, ACCIDENT_DATE, ACCIDENT_TIME, 
-            ALCOHOLTIME, ACCIDENT_TYPE, DAY_OF_WEEK, DCA_CODE, HIT_RUN_FLAG, LIGHT_CONDITION, POLICE_ATTEND, ROAD_GEOMETRY, 
-            SEVERITY, SPEED_ZONE, RUN_OFFROAD, NODE_ID, LONGITUDE, LATITUDE, NODE_TYPE, LGA_NAME, REGION_NAME, VICGRID_X, 
-            VICGRID_Y, TOTAL_PERSONS, INJ_OR_FATAL, FATALITY, SERIOUSINJURY, OTHERINJURY, NONINJURED, MALES, FEMALES, BICYCLIST, 
-            PASSENGER, DRIVER, PEDESTRIAN, PILLION, MOTORIST, UNKNOWN, PED_CYCLIST_5_12, PED_CYCLIST_13_18, OLD_PEDESTRIAN, 
-            OLD_DRIVER, YOUNG_DRIVER, ALCOHOL_RELATED, UNLICENCSED, NO_OF_VEHICLES, HEAVYVEHICLE, PASSENGERVEHICLE, MOTORCYCLE, 
-            PUBLICVEHICLE, DEG_URBAN_NAME, DEG_URBAN_ALL, LGA_NAME_ALL, REGION_NAME_ALL, SRNS, SRNS_ALL, RMA, RMA_ALL, DIVIDED, 
-            DIVIDED_ALL, STAT_DIV_NAME) 
-            values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);""", data
-        )
+            # data contains a tuple of values for every row of data from the csv file.
+            # The executemany inserts values for each of the specified fields for each row of data in the variable "data"
+            cur.executemany(
+                """Insert into Crash_Data (OBJECTID, ACCIDENT_NO, ABS_CODE, ACCIDENT_STATUS, ACCIDENT_DATE, ACCIDENT_TIME, 
+                ALCOHOLTIME, ACCIDENT_TYPE, DAY_OF_WEEK, DCA_CODE, HIT_RUN_FLAG, LIGHT_CONDITION, POLICE_ATTEND, ROAD_GEOMETRY, 
+                SEVERITY, SPEED_ZONE, RUN_OFFROAD, NODE_ID, LONGITUDE, LATITUDE, NODE_TYPE, LGA_NAME, REGION_NAME, VICGRID_X, 
+                VICGRID_Y, TOTAL_PERSONS, INJ_OR_FATAL, FATALITY, SERIOUSINJURY, OTHERINJURY, NONINJURED, MALES, FEMALES, BICYCLIST, 
+                PASSENGER, DRIVER, PEDESTRIAN, PILLION, MOTORIST, UNKNOWN, PED_CYCLIST_5_12, PED_CYCLIST_13_18, OLD_PEDESTRIAN, 
+                OLD_DRIVER, YOUNG_DRIVER, ALCOHOL_RELATED, UNLICENCSED, NO_OF_VEHICLES, HEAVYVEHICLE, PASSENGERVEHICLE, MOTORCYCLE, 
+                PUBLICVEHICLE, DEG_URBAN_NAME, DEG_URBAN_ALL, LGA_NAME_ALL, REGION_NAME_ALL, SRNS, SRNS_ALL, RMA, RMA_ALL, DIVIDED, 
+                DIVIDED_ALL, STAT_DIV_NAME) 
+                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);""", data
+            )
 
-        # close csv file, commit the sql queries, and close the connection to sqlite3.
-        file.close()
-        con.commit()
-        con.close()
+            # close csv file, commit the sql queries, and close the connection to sqlite3.
+            file.close()
+            con.commit()
+            con.close()
+
+            return "The file was loaded successfully"
+
+        except FileNotFoundError:
+            
+            return "The file could not be found, please select another"
+
+
+
 
     def load_data(self):
         import sqlite3
