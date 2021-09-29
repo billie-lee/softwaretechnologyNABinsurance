@@ -26,7 +26,7 @@ class TestCrashAnalysis(unittest.TestCase):
         self.assertEqual(sum(data.get_time_analysis("2019-02-22", "2019-04-26")[1]), 379)
 
 
-    # 3.3 Test the total number of accidents returned for the time analysis function.
+    # 3.3 Test the number of accidents found for each hour matches that found in SQL queries.
     def test_time_analysis_number(self):
         self.assertEqual(data.get_time_analysis("2013-07-01", "2013-07-01")[1], [0, 0, 1, 0, 1, 1, 2, 1, 2, 2, 1, 0, 1, 1, 1, 4, 5, 6, 5, 4, 0, 2, 1, 0])
         self.assertEqual(data.get_time_analysis("2014-07-01", "2014-07-01")[1], [0, 1, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 2, 2, 1, 1, 2, 5, 3, 2, 1, 0, 0, 0])
