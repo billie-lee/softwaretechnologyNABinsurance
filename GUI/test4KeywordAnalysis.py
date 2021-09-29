@@ -19,8 +19,11 @@ class TestCrashAnalysis(unittest.TestCase):
 
     # 4.2 Test an invalid keyword.
     def test_keyword_analysis_invalid(self):
+        # invalid string
         self.assertEqual(len(data.get_keyword("2014-07-01", "2014-07-01", "Cheese Burgers")), 0)
+        # invalid type integer
         self.assertEqual(len(data.get_keyword("2014-07-01", "2014-07-01", 9000)), 0)
+        # invalid type float
         self.assertEqual(len(data.get_keyword("2014-07-01", "2014-07-01", 56.74)), 0)
 
     # 4.3 Test an empty keyword.
