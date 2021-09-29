@@ -330,7 +330,7 @@ class Crash_Analysis:
         return data
 
 
-    def fetch_location(self): # pragma: no cover
+    def fetch_location(self):
         import sqlite3
         connection = sqlite3.connect("Database/accidents.db")
 
@@ -365,7 +365,7 @@ class Crash_Analysis:
 
 
 # ----Original Fetch Location function
-    # def fetch_location(self): # pragma: no cover
+    # def fetch_location(self): 
     #     import sqlite3
     #     connection = sqlite3.connect("Database/accidents.db")
 
