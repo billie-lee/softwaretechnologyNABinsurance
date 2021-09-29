@@ -6,8 +6,26 @@ def fetchData():
 
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM CRASH_DATA LIMIT 1,10")
+    cursor.execute("SELECT * FROM CRASH_DATA LIMIT 1,100")
 
     DATA = cursor.fetchall()
 
     return DATA
+
+def fetchLocation():
+    connection = sqlite3.connect("Database/accidents.db")
+
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT DISTINCT LGA_NAME FROM CRASH_DATA")
+
+    data = cursor.fetchall()
+
+    cursor.close()
+
+    locations = []
+    for location in data:
+        if location[0] != ' ':
+            locations.append(location[0])
+
+    return locations

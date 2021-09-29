@@ -5,7 +5,12 @@ from tkcalendar import DateEntry
 from ttkwidgets.autocomplete import AutocompleteCombobox
 from tkinter.constants import BOTH, BOTTOM, END, FALSE, HORIZONTAL, LEFT, NE, NSEW, RIGHT, VERTICAL, X, Y
 from PIL import ImageTk, Image
-from functions import fetchData
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
+NavigationToolbar2Tk)
+from functions import fetchData, fetchLocation
+from crash_analysis import Crash_Analysis
 
 dirname = os.path.dirname(__file__)
 
@@ -14,7 +19,8 @@ class MainApp():
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.resizable(FALSE, FALSE)
+        self.root.geometry("800x500")
+        self.root.pack_propagate(False)
         
         self.root.title("NAB Insurance")
         #frame for main menu
@@ -58,7 +64,10 @@ class MainApp():
 
         #additional widgets for Location Analysis
         self.locationLabel = Label(self.mainFrame, text="Location:")
-        self.location = AutocompleteCombobox(self.mainFrame, completevalues=[])
+        
+        locations = fetchLocation()
+
+        self.location = AutocompleteCombobox(self.mainFrame, completevalues=locations)
 
         #call loadDataTab as it is our homescreen
         self.loadDataTab()
@@ -118,8 +127,8 @@ class MainApp():
         for col in range(col_count):
             self.mainFrame.grid_columnconfigure(col, weight=100)
 
-        for row in range(row_count):
-            self.mainFrame.grid_rowconfigure(row, weight=50)
+        # for row in range(row_count):
+        #     self.mainFrame.grid_rowconfigure(row, weight=50)
 
         self.root.mainloop()
 
@@ -127,7 +136,7 @@ class MainApp():
         self.fileName.config(state="normal")
         self.fileName.delete(0, END)
         filetypes = (
-            ('text files', '*.txt'),
+            ('text files', '*.csv'),
             ('All files', '*.*')
         )
 
@@ -139,6 +148,51 @@ class MainApp():
         print(filename)
         self.fileName.insert(0, filename)
         self.fileName.config(state="readonly")
+    
+    def loadData(self, filePath):
+        #call function csv to db (read data)
+        filePath = self.fileName.get()
+        print(filePath)
+
+        Crash_Analysis.read_data(self, filePath)
+
+        return 0
+
+    def loadDateAnalysis(self):
+        #call function date analysis
+        return 0
+
+    def loadTimeAnalysis(self):
+        #call function time analysis
+        return 0
+
+    def loadAlcoholAnalysis(self):
+        #call function time analysis
+        return 0
+    
+    def loadLocationAnalysis(self, dates):
+        #call function time analysis
+
+        startDate = self.startDate.get_date()
+        endDate = self.endDate.get_date()
+        location = self.location.get()
+        print(type(self.startDate.get_date()))
+        print(type(self.endDate.get_date()))
+        print(type(self.location.get()))
+
+        data = Crash_Analysis.get_location_analysis(self, startDate, endDate, location)
+
+        fig, axes = plt.subplots(1)
+
+        axes.barh(data[0],data[1])
+
+        canvas = FigureCanvasTkAgg(fig, self.locationAnalysisFram)
+
+        canvas.get_tk_widget().pack()
+
+    def loadKeywordAnalysis(self):
+        #call function time analysis
+        return 0
 
     def changeTab(self, event):
         selectedTab = event.widget.select()
@@ -160,16 +214,23 @@ class MainApp():
     def loadDataTab(self):
         self.mainFrame.grid_forget()
         self.gridForget()
-        
+
+        self.loadFileBtn.unbind("<Button-1>")
+        self.loadFileBtn.bind("<Button-1>", self.loadData)
+
+        self.mainFrame.grid(row=0, column=1)
         self.selectFileBtn.grid(row=0, column=0, columnspan=2, sticky=NSEW)
         self.fileNameLabel.grid(row=0, column=2)
         self.fileName.grid(row=0, column=3, columnspan=2)
         self.loadFileBtn.grid(row=0, column=5, rowspan=2)
-        self.mainFrame.grid(row=0, column=1)
+        
 
     def dateAndTimeAnalysisTab(self):
         self.mainFrame.grid_forget()
         self.gridForget()
+
+        self.loadFileBtn.unbind("<Button-1>")
+        self.loadFileBtn.bind("<Button-1>", self.loadDateAnalysis)
 
         self.startDateLabel.grid(row=0, column=1)
         self.startDate.grid(row=0, column=2)
@@ -181,6 +242,9 @@ class MainApp():
     def keywordAnalysisTab(self):
         self.mainFrame.grid_forget()
         self.gridForget()
+
+        self.loadFileBtn.unbind("<Button-1>")
+        self.loadFileBtn.bind("<Button-1>", self.loadKeywordAnalysis)
 
         self.startDateLabel.grid(row=0, column=1)
         self.startDate.grid(row=0, column=2)
@@ -194,6 +258,9 @@ class MainApp():
     def alcoholAnalysisTab(self):
         self.mainFrame.grid_forget()
         self.gridForget()
+
+        self.loadFileBtn.unbind("<Button-1>")
+        self.loadFileBtn.bind("<Button-1>", self.loadAlcoholAnalysis)
 
         self.startDateLabel.grid(row=0, column=1)
         self.startDate.grid(row=0, column=2)
@@ -210,12 +277,16 @@ class MainApp():
         self.mainFrame.grid_forget()
         self.gridForget()
 
+        self.loadFileBtn.unbind("<Button-1>")
+        self.loadFileBtn.bind("<Button-1>", self.loadLocationAnalysis)
+
         self.startDateLabel.grid(row=0, column=1)
         self.startDate.grid(row=0, column=2)
         self.endDateLabel.grid(row=0, column=3)
         self.endDate.grid(row=0, column=4)
         self.locationLabel.grid(row=1, column=3)
 
+        
         #call function to load data in location.
         self.location.grid(row=1, column=4)
         self.loadFileBtn.grid(row=0, column=5, rowspan=2)
