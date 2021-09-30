@@ -1,12 +1,13 @@
 import os
 import tkinter as tk
 import tkcalendar as tkc
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from ttkwidgets.autocomplete import AutocompleteCombobox
-from tkinter.constants import BOTTOM, BROWSE, END, HORIZONTAL, NSEW, RIGHT, VERTICAL, X, Y
+from tkinter.constants import BOTTOM, BROWSE, END, HORIZONTAL, RIGHT, VERTICAL, X, Y
 from PIL import ImageTk, Image
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
+import numpy as np
 from crash_analysis import Crash_Analysis
 
 def placeForget():
@@ -31,6 +32,9 @@ def placeForget():
     for widgets in locationAnalysisFram.winfo_children():
         widgets.pack_forget()
 
+    for widgets in lowerFrame.winfo_children():
+        widgets.place_forget()
+
 def changeTab(event):
     selectedTab = event.widget.select()
     tabText = event.widget.tab(selectedTab, "text")
@@ -54,7 +58,11 @@ def loadData(filePath):
     print(filePath)
 
     data = Crash_Analysis()
-    data.read_data(filePath)
+    result = data.read_data(filePath)
+
+    messagebox.showinfo('information', result)
+
+    loadDataTab()
 
 def loadDateAnalysis(data):
     #call function date analysis
@@ -83,6 +91,13 @@ def loadDateAnalysis(data):
 
     loadTreeviewData(tv1, result)
 
+    for widgets in lowerFrame.winfo_children():
+        widgets.place_forget()
+    
+    RowLabel = tk.Label(lowerFrame, text=f"Number of Data: {len(result)}")
+    RowLabel.place(height=50, width=850, relheight=0)
+
+
 def loadTimeAnalysis(data):
     #call function time analysis
     for widgets in timeAnalysisFrame.winfo_children():
@@ -99,13 +114,23 @@ def loadTimeAnalysis(data):
 
     result = data.get_time_analysis(sd, ed)
 
-    axes.plot(result[0],result[1])
+    axes.plot(result[0],result[1], marker=11)
+    axes.set_xlabel("Hours")
+    axes.set_ylabel("Number of Accidents")
+
+    plt.tight_layout()
 
     canvas = FigureCanvasTkAgg(fig, timeAnalysisFrame)
 
     canvas.get_tk_widget().pack()
 
     root.update()
+
+    for widgets in lowerFrame.winfo_children():
+        widgets.place_forget()
+
+    RowLabel = tk.Label(lowerFrame, text=f"Number of Accidents: {sum(result[1])}")
+    RowLabel.place(height=50, width=850, relheight=0)
 
 def loadKeywordAnalysis(data):
     #call function time analysis
@@ -135,13 +160,17 @@ def loadKeywordAnalysis(data):
 
     loadTreeviewData(tv1, result)
 
+    for widgets in lowerFrame.winfo_children():
+        widgets.place_forget()
+
+    RowLabel = tk.Label(lowerFrame, text=f"Number of Data: {len(result)}")
+    RowLabel.place(height=50, width=850, relheight=0)
+
 def loadAlcoholAnalysis(data):
     #call function time analysis
     for widgets in alcoholAnalysisFrame.winfo_children():
         widgets.pack_forget()
     
-    fig, axes = plt.subplots(2)
-
     sd = startDate.get_date()
     ed = endDate.get_date()
     sd2 = startDate2.get_date()
@@ -152,15 +181,35 @@ def loadAlcoholAnalysis(data):
     data = Crash_Analysis()
 
     result = data.get_alcohol_analysis(sd, ed, sd2, ed2)
+    
+    X_axis = np.arange(len(result[0][0]))
 
-    axes[0].barh(result[0][0],result[0][1])
-    axes[1].barh(result[1][0],result[1][1])
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    
+    plt.bar(X_axis - 0.2, result[0][1], 0.4, label = '1st Period')
+    plt.bar(X_axis + 0.2, result[1][1], 0.4, label = '2nd Period')
+    
+    plt.xticks(X_axis, result[0][0])
+    plt.xlabel("Accident Types")
+    plt.ylabel("Number of Accidents")
+    plt.legend()
+
+    plt.setp(ax.get_xticklabels(), rotation=30, horizontalalignment='right')
+    plt.tight_layout()
+    plt.xticks(fontsize=8)
 
     canvas = FigureCanvasTkAgg(fig, alcoholAnalysisFrame)
 
     canvas.get_tk_widget().pack()
 
     root.update()
+
+    for widgets in lowerFrame.winfo_children():
+        widgets.place_forget()
+
+    RowLabel = tk.Label(lowerFrame, text=f"Number of Accidents for Period 1: {sum(result[0][1])} and Period 2: {sum(result[1][1])}")
+    RowLabel.place(height=50, width=850, relheight=0)
 
 def loadLocationAnalysis(data):
     #call function time analysis
@@ -179,7 +228,13 @@ def loadLocationAnalysis(data):
 
     result = data.get_location_analysis(sd, ed, lo)
 
-    axes.barh(result[0],result[1])
+    axes.bar(result[0],result[1])
+    axes.set_ylabel("Number of Accidents")
+    axes.set_xlabel("Accident Type")
+
+    plt.setp(axes.get_xticklabels(), rotation=30, horizontalalignment='right')
+    plt.tight_layout()
+    plt.xticks(fontsize=8)
 
     canvas = FigureCanvasTkAgg(fig, locationAnalysisFram)
 
@@ -187,8 +242,13 @@ def loadLocationAnalysis(data):
 
     root.update()
 
+    for widgets in lowerFrame.winfo_children():
+        widgets.place_forget()
+
+    RowLabel = tk.Label(lowerFrame, text=f"Number of Accidents: {sum(result[1])}")
+    RowLabel.place(height=50, width=850, relheight=0)
+
 def selectFile():
-    fileName.config(state="normal")
     fileName.delete(0, END)
     filetypes = (
             ('text files', '*.csv'),
@@ -201,7 +261,6 @@ def selectFile():
             filetypes=filetypes)
 
     fileName.insert(0, filename)
-    fileName.config(state="readonly")
 
 def loadDataTab():
     mainFrame.place_forget()
@@ -237,6 +296,11 @@ def loadDataTab():
 
     loadTreeviewData(tv1, result)
 
+    lowerFrame.place(height=50, width=850, rely=0.9, relx=0)
+
+    RowLabel = tk.Label(lowerFrame, text=f"Number of Data: {len(result)}")
+    RowLabel.place(height=50, width=850, relheight=0)
+
 def dateAnalysisTab():
     mainFrame.place_forget()
     placeForget()
@@ -253,7 +317,10 @@ def dateAnalysisTab():
 
     loadFileBtn.place(rely=.15, relx=0.85)
 
-    
+    lowerFrame.place(height=50, width=850, rely=0.9, relx=0)
+
+    RowLabel = tk.Label(lowerFrame, text="Number of Data:")
+    RowLabel.place(height=50, width=850, relheight=0)
 
 def timeAnalysisTab():
     mainFrame.place_forget()
@@ -270,6 +337,11 @@ def timeAnalysisTab():
     endDate.place(rely=0.2, relx=0.6)
 
     loadFileBtn.place(rely=0.15, relx=0.85)
+
+    lowerFrame.place(height=50, width=850, rely=0.9, relx=0)
+
+    RowLabel = tk.Label(lowerFrame, text="Number of Accidents:")
+    RowLabel.place(height=50, width=850, relheight=0)
 
 def keywordAnalysisTab():
     mainFrame.place_forget()
@@ -290,7 +362,11 @@ def keywordAnalysisTab():
 
     loadFileBtn.place(rely=0.15, relx=0.85)
 
-    
+    lowerFrame.place(height=50, width=850, rely=0.9, relx=0)
+
+
+    RowLabel = tk.Label(lowerFrame, text="Number of Data:")
+    RowLabel.place(height=50, width=850, relheight=0)
 
 def alcoholAnalysisTab():
     mainFrame.place_forget()
@@ -313,6 +389,11 @@ def alcoholAnalysisTab():
 
     loadFileBtn.place(rely=0.15, relx=0.85)
 
+    lowerFrame.place(height=50, width=850, rely=0.9, relx=0)
+
+    RowLabel = tk.Label(lowerFrame, text="Number of Accidents for Period 1: and Period 2:")
+    RowLabel.place(height=50, width=850, relheight=0)
+
 def locationAnalysisTab():
     mainFrame.place_forget()
     placeForget()
@@ -327,10 +408,19 @@ def locationAnalysisTab():
     endDateLabel.place(rely=0.2, relx=0.5)
     endDate.place(rely=0.2, relx=0.6)
 
+    data = Crash_Analysis()
+    locations = data.fetch_location()
+    location['values'] = locations
+
     locationLabel.place(rely=0.6, relx=0.5)
     location.place(rely=0.6, relx=0.6)
 
     loadFileBtn.place(rely=0.15, relx=0.85)
+
+    lowerFrame.place(height=50, width=850, rely=0.9, relx=0)
+
+    RowLabel = tk.Label(lowerFrame, text="Number of Accidents:")
+    RowLabel.place(height=50, width=850, relheight=0)
 
 def treeviewColumn(tv1):
     tv1["columns"] = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33","34","35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63")
@@ -494,7 +584,7 @@ def loadTreeviewData(tv1, data):
 dirname = os.path.dirname(__file__)
 root = tk.Tk()
 
-root.geometry("850x550")
+root.geometry("850x600")
 root.pack_propagate(False)
 root.resizable(0,0)
 root.title("NAB Insurance")
@@ -517,7 +607,6 @@ logoFrame.place(height=50, width=100, rely=0.03, relx=0.01)
 #widgets for load data tab
 fileNameLabel = tk.Label(mainFrame, text="File Name:")
 fileName = tk.Entry(mainFrame)
-fileName.config(state="readonly")
 
 selectFileBtn = tk.Button(mainFrame, text="SELECT FILE", command=selectFile, width=10)
 loadFileBtn = tk.Button(mainFrame, text="Load", width=10, height=3)
@@ -541,10 +630,9 @@ endDate2 = tkc.DateEntry(mainFrame, selectmode="day")
 #additional widgets for Location Analysis
 locationLabel = tk.Label(mainFrame, text="Location:")
 
-data = Crash_Analysis()
-locations = data.fetch_location()
 
-location = AutocompleteCombobox(mainFrame, completevalues=locations)
+
+location = AutocompleteCombobox(mainFrame, completedvalues=None)
 
 loadedFrame = tk.Frame(root)
 loadedFrame.place(height=450, width=800, rely=0.15, relx=0)
@@ -568,6 +656,10 @@ appTab.add(locationAnalysisFram, text="Location Analysis")
 appTab.pack(side=RIGHT, fill=Y)
 
 appTab.bind("<<NotebookTabChanged>>", changeTab)
+
+lowerFrame = tk.Frame(root, padx=5, pady=5)
+
+
 
 loadDataTab()
 

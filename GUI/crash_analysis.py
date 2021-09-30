@@ -360,6 +360,8 @@ class Crash_Analysis:
                 suburb += " "
             clean_location.append(suburb.strip())
 
+        clean_location.sort()
+
         return clean_location
 
 
